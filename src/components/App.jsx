@@ -11,6 +11,16 @@ class App extends Component {
   };
 
   handleAddContact = ({ name, number }) => {
+    const { contacts } = this.state;
+    const isContactExist = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (isContactExist) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+
     const newContact = {
       name,
       number,
@@ -20,7 +30,6 @@ class App extends Component {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
     }));
-    console.log(this.state.contacts);
   };
 
   getVisibleContacts = () => {
